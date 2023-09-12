@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "993262824648",
+    "project_id": "flutter-basics-33eb0",
+    "storage_bucket": "flutter-basics-33eb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993262824648:android:5420d016b7bd070a13c9fd",
+        "android_client_info": {
+          "package_name": "com.example.flutterbasics"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkdRTS38_cxo7TNFAjrSLf-RBF3fMPP5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
