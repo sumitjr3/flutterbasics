@@ -1,33 +1,16 @@
-import 'dart:ffi';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutterbasics/views/LoginView.dart';
-import 'firebase_options.dart';
+import 'package:flutterbasics/firebase_options.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(MaterialApp(
-    title: 'demo',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-    ),
-    home: const LoginView(),
-  ));
-}
-
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<LoginView> createState() => _login_viewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _login_viewState extends State<LoginView> {
   late final TextEditingController _email, _password;
 
   @override
@@ -48,7 +31,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('register'),
+        title: const Text('login'),
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
@@ -79,11 +62,15 @@ class _RegisterViewState extends State<RegisterView> {
                       final email = _email.text;
                       final password = _password.text;
 
-                      final userCredential = FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                              email: email, password: password);
+                      try {
+                        final userCredential = FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: email, password: password);
+                      } on FirebaseAuthException catch (e) {
+                        print(e.code);
+                      }
                     },
-                    child: const Text('Register'),
+                    child: const Text('login'),
                   ),
                 ],
               );
