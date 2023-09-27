@@ -31,33 +31,62 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            final user = FirebaseAuth.instance.currentUser;
+            if (user != null) {
+              if (user.emailVerified) {
+                return const NotesView();
+              } else {
+                return const NotesView();
+              }
+            } else {
+              return const LoginView();
+            }
+
+          default:
+            return const Text('loading...');
+        }
+      },
+    );
+  }
+}
+
+enum MenuAction { logout }
+
+class NotesView extends StatefulWidget {
+  const NotesView({super.key});
+
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Main UI'),
+        actions: [
+          PopupMenuButton<MenuAction>(
+            onSelected: (value) {},
+            itemBuilder: (context) {
+              return const [
+                PopupMenuItem<MenuAction>(
+                  value: MenuAction.logout,
+                  child: Text('log out'),
+                ),
+              ];
+            },
+          )
+        ],
       ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
-              if (user != null) {
-                if (user.emailVerified) {
-                  print('email is verified');
-                } else {
-                  return const VerifyEmail();
-                }
-              } else {
-                return const LoginView();
-              }
-              return const Text('done');
-            default:
-              return const Text('loading...');
-          }
-        },
-      ),
+      body: const Text('hello world'),
     );
   }
 }
