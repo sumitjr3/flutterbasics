@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
   State<RegisterView> createState() => _RegisterViewState();
@@ -52,9 +52,16 @@ class _RegisterViewState extends State<RegisterView> {
               final email = _email.text;
               final password = _password.text;
 
-              final userCredential = FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: email, password: password);
+              try {
+                final userCredential =
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: email,
+                  password: password,
+                );
+                // You can access userCredential.user to get the newly registered user.
+              } on FirebaseAuthException catch (e) {
+                print(e.code);
+              }
             },
             child: const Text('Register'),
           ),

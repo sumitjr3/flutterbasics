@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({super.key});
+  const VerifyEmail({Key? key}) : super(key: key);
 
   @override
   State<VerifyEmail> createState() => _VerifyEmailState();

@@ -22,6 +22,7 @@ void main() async {
     routes: {
       '/login/': (context) => const LoginView(),
       '/register/': (context) => const RegisterView(),
+      '/notesView/': (context) => const NotesView(),
     },
   ));
 }
@@ -31,29 +32,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      ),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.done:
-            final user = FirebaseAuth.instance.currentUser;
-            if (user != null) {
-              if (user.emailVerified) {
-                return const NotesView();
-              } else {
-                return const NotesView();
-              }
-            } else {
-              return const LoginView();
-            }
-
-          default:
-            return const Text('loading...');
+    if (Firebase.apps.isNotEmpty) {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        if (user.emailVerified) {
+          return const NotesView();
+        } else {
+          return const VerifyEmail();
         }
-      },
-    );
+      } else {
+        return const LoginView();
+      }
+    } else {
+      return const CircularProgressIndicator(); // Show a loading indicator while Firebase initializes.
+    }
   }
 }
 

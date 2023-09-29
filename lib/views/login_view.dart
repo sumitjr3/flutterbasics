@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _login_viewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _login_viewState extends State<LoginView> {
+class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email, _password;
 
   @override
@@ -56,6 +56,8 @@ class _login_viewState extends State<LoginView> {
                 final userCredential = FirebaseAuth.instance
                     .signInWithEmailAndPassword(
                         email: email, password: password);
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/notesView/', (route) => false);
               } on FirebaseAuthException catch (e) {
                 print(e.code);
               }
