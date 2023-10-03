@@ -63,7 +63,7 @@ class _RegisterViewState extends State<RegisterView> {
                 );
                 Navigator.of(context).pushNamed(verifyEmailRoute);
 
-                // You can access userCredential.user to get the newly registered user.
+              
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
                   showErrorDialog(
