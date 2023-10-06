@@ -61,6 +61,7 @@ class NotesView extends StatefulWidget {
   State<NotesView> createState() => _NotesViewState();
 }
 
+//notes view with logout button
 class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
