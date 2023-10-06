@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//error dialog without boolean value
 Future<void> showErrorDialog(
   BuildContext context,
   String text,
