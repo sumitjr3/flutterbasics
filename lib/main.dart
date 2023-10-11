@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterbasics/constants/routes.dart';
 import 'package:flutterbasics/services/auth/auth_service.dart';
 import 'package:flutterbasics/views/login_view.dart';
-import 'package:flutterbasics/views/notes_view.dart';
+import 'package:flutterbasics/views/note/new_note_view.dart';
+import 'package:flutterbasics/views/note/notes_view.dart';
 import 'package:flutterbasics/views/register_view.dart';
 import 'package:flutterbasics/views/verify_email_view.dart';
 
@@ -23,6 +24,7 @@ void main() async {
       registerRoute: (context) => const RegisterView(),
       notesRoute: (context) => const NotesView(),
       verifyEmailRoute: (context) => const VerifyEmail(),
+      newNotesRoute: (context) => const NewNotesView(),
     },
   ));
 }
@@ -44,7 +46,7 @@ class HomePage extends StatelessWidget {
         return const LoginView();
       }
     } else {
-      return const CircularProgressIndicator(); // Show a loading indicator while Firebase initializes.
+      return const CircularProgressIndicator();
     }
   }
 }
