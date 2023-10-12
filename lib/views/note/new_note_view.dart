@@ -1,7 +1,4 @@
-import 'dart:js_util';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutterbasics/services/auth/auth_service.dart';
 import 'package:flutterbasics/services/crud/notes_service.dart';
 
